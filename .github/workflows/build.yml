@@ -45,7 +45,6 @@ jobs:
 
     - name: Rename build output
       run: mv *.mpack Sample-${{ env.VERSION }}.mpack
-      working-directory: src
 
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
