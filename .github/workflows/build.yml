@@ -35,7 +35,7 @@ jobs:
       run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/src/bin/Release/net7.0/Sample.dll -d:$PWD
 
     - name: Archive binaries
-      run: zip -r src/bin/Release/net7.0/Binaries.zip .
+      run: zip -r Binaries.zip src/bin/Release/net7.0/
 
     - name: Publish binaries
       uses: actions/upload-artifact@v2
@@ -50,4 +50,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Extension
-        path: Sample.mpack
+        path: Sample-${{ env.VERSION }}.mpack
