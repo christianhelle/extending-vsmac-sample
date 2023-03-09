@@ -13,8 +13,7 @@ namespace Sample
         {
             var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
             var textView = IdeApp.Workbench.ActiveDocument.GetContent<ITextView>();
-            var caretPosition = textView.Caret.Position;
-            textBuffer.Insert(caretPosition.BufferPosition.Position, "// Hello");
+            textBuffer.Insert(textView.Caret.Position.BufferPosition.Position, "// Hello");
         }
 
         protected override void Update(CommandInfo info)
