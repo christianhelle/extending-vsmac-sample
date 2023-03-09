@@ -21,7 +21,7 @@ jobs:
       run: |
         sed -i -e 's/1.0/${{ env.VERSION }}/g' ./AddinInfo.cs
         cat ./AddinInfo.cs
-      working-directory: src/Properties
+      working-directory: src
 
     - name: Restore
       run: dotnet restore
