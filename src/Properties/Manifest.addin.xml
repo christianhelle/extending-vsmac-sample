@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExtensionModel>
+    <Extension path = "/MonoDevelop/Ide/Commands/Edit">
+        <Command id = "Sample.SampleCommands.InsertText"
+            _label = "Insert Text"
+            defaultHandler = "Sample.InsertTextHandler" />
+    </Extension>
+
+    <Extension path = "/MonoDevelop/Ide/MainMenu/Edit">
+        <CommandItem id="Sample.SampleCommands.InsertText" />
+    </Extension>
+</ExtensionModel>

@@ -1,0 +1,54 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+
+env:
+  VERSION: 0.1.${{ github.run_number }}
+
+jobs:
+
+  build:
+
+    runs-on: macos-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Update Extension Version Info
+      run: |
+        sed -i -e 's/1.0/${{ env.VERSION }}/g' ./AddinInfo.cs
+        cat ./AddinInfo.cs
+      working-directory: src/Properties
+
+    - name: Restore
+      run: dotnet restore
+      working-directory: src
+
+    - name: Build
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool build --configuration:Release $(shell pwd)/Sample.sln
+      working-directory: src
+
+    - name: Pack
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $(shell pwd)/src/bin/Release/ApiClientCodeGen.VSMac.dll -d:$(shell pwd)
+
+    - name: Archive binaries
+      run: zip -r src/bin/Release/Binaries.zip .
+
+    - name: Publish binaries
+      uses: actions/upload-artifact@v2
+      with:
+        name: Binaries
+        path: Binaries.zip
+
+    - name: Rename build output
+      run: mv *.mpack Sample-${{ env.VERSION }}.mpack
+      working-directory: src
+
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: Extension
+        path: *.mpack
