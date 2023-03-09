@@ -1,7 +1,9 @@
+using System;
 using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
-using MonoDevelop.Ide.Gui;
-using System;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Editor;
+using Microsoft.CodeAnalysis.Text;
 
 namespace Sample
 {
@@ -9,13 +11,24 @@ namespace Sample
     {
         protected override void Run()
         {
-            var editor = IdeApp.Workbench.ActiveDocument.Editor;
+            var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
+            var date = DateTime.Now.ToString();
+            var textView = IdeApp.Workbench.ActiveDocument.GetContent<ITextView>();
+            var caretPosition = textView.Caret.Position;
             editor.InsertAtCaret("// Hello");
         }
 
         protected override void Update(CommandInfo info)
         {
-            info.Enabled = IdeApp.Workbench.ActiveDocument?.Editor != null;
+            var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
+            if (textBuffer != null && textBuffer.AsTextContainer() is SourceTextContainer container)
+            {
+                var document = container.GetTextBuffer();
+                if (document != null)
+                {
+                    info.Enabled = true;
+                }
+           }
         }
     }
 
