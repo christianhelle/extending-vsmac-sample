@@ -28,11 +28,11 @@ jobs:
       working-directory: src
 
     - name: Build
-      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool build --configuration:Release $(shell pwd)/Sample.csproj
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool build --configuration:Release $PWD/Sample.csproj
       working-directory: src
 
     - name: Pack
-      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $(shell pwd)/src/bin/Release/Sample.dll -d:$(shell pwd)
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/src/bin/Release/Sample.dll -d:$PWD
 
     - name: Archive binaries
       run: zip -r src/bin/Release/Binaries.zip .
