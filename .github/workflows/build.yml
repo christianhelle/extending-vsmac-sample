@@ -28,7 +28,7 @@ jobs:
       working-directory: src
 
     - name: Build
-      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool build --configuration:Release $(shell pwd)/Sample.sln
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool build --configuration:Release $(shell pwd)/Sample.csproj
       working-directory: src
 
     - name: Pack
