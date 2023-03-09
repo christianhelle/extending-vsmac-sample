@@ -12,10 +12,9 @@ namespace Sample
         protected override void Run()
         {
             var textBuffer = IdeApp.Workbench.ActiveDocument.GetContent<ITextBuffer>();
-            var date = DateTime.Now.ToString();
             var textView = IdeApp.Workbench.ActiveDocument.GetContent<ITextView>();
             var caretPosition = textView.Caret.Position;
-            editor.InsertAtCaret("// Hello");
+            textBuffer.Insert(caretPosition.BufferPosition.Position, "// Hello");
         }
 
         protected override void Update(CommandInfo info)
