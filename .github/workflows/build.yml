@@ -32,10 +32,10 @@ jobs:
       working-directory: src
 
     - name: Pack
-      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/src/bin/Release/Sample.dll -d:$PWD
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $PWD/src/bin/Release/net7.0/Sample.dll -d:$PWD
 
     - name: Archive binaries
-      run: zip -r src/bin/Release/Binaries.zip .
+      run: zip -r src/bin/Release/net7.0/Binaries.zip .
 
     - name: Publish binaries
       uses: actions/upload-artifact@v2
