@@ -32,7 +32,7 @@ jobs:
       working-directory: src
 
     - name: Pack
-      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $(shell pwd)/src/bin/Release/ApiClientCodeGen.VSMac.dll -d:$(shell pwd)
+      run: /Applications/Visual\ Studio.app/Contents/MacOS/vstool setup pack $(shell pwd)/src/bin/Release/Sample.dll -d:$(shell pwd)
 
     - name: Archive binaries
       run: zip -r src/bin/Release/Binaries.zip .
@@ -51,4 +51,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: Extension
-        path: *.mpack
+        path: Sample.mpack
