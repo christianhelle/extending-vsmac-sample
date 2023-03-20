@@ -70,9 +70,9 @@ jobs:
       with:
         path: artifacts
 
-    - name: Move artifact to beta folder
+    - name: Remove version number from filename
       run: |
-        mv artifacts/Extension/src/Sample-${{ env.VERSION }}.mpack beta/Sample.mpack
+        mv artifacts/Extension/Sample-${{ env.VERSION }}.mpack Sample.mpack
         rm -rf artifacts
     
     - name: Git Commit Build Artifacts      
