@@ -62,7 +62,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        repository: christianhelle/my-vsmac-extensions-repo
+        repository: christianhelle/my-vsmac-extension-repo
         ref: 'main'
         token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
 
