@@ -51,3 +51,34 @@ jobs:
       with:
         name: Extension
         path: Sample-${{ env.VERSION }}.mpack
+
+  deploy:
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: build
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: christianhelle/my-vsmac-extensions-repo
+        ref: 'main'
+        token:  ${{ secrets.ACTIONS_GITHUB_TOKEN }}
+
+    - uses: actions/download-artifact@v3
+      with:
+        path: artifacts
+
+    - name: Move artifact to beta folder
+      run: |
+        mv artifacts/Extension/src/Sample-${{ env.VERSION }}.mpack beta/Sample.mpack
+        rm -rf artifacts
+    
+    - name: Git Commit Build Artifacts      
+      run: |
+        git config --global user.name "Continuous Integration"
+        git config --global user.email "username@users.noreply.github.com"
+        git add Sample.mpack
+        git commit -m "Update .mpack file to version ${{ env.VERSION }}"
+        git push
